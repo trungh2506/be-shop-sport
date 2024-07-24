@@ -11,9 +11,12 @@ import path from "path";
 
 async function getProductsController(req, res) {
   try {
-    const page = parseInt(req.query.page);
-    const pageSize = parseInt(req.query.pageSize);
-    const result = await getProducts(page, pageSize);
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 6;
+    const orderBy = req.query.orderBy ? JSON.parse(req.query.orderBy) : {};
+    const isHot = req.query.hot ? req.query.hot === "true" : undefined;
+    const isSale = req.query.sale ? req.query.sale === "true" : undefined;
+    const result = await getProducts(page, pageSize, orderBy, isHot, isSale);
     return res.status(200).json(result);
   } catch (error) {
     res.status(500).json({

@@ -1,33 +1,27 @@
-import Product from "../models/productModel.js";
+import User from "../models/.js";
 
-async function getProducts(page, page_size, order_by, is_hot, is_sale) {
+async function getProducts(page, page_size) {
   try {
-    console.log(is_hot);
-    const filter = { is_deleted: false };
-    if (is_hot !== undefined) {
-      filter.is_hot = is_hot;
-    }
-    if (is_sale !== undefined) {
-      filter.is_sale = is_sale;
-    }
-    const total = await Product.countDocuments(filter);
-    const skip = (page - 1) * page_size;
-    const products = await Product.find(filter)
-      .skip(skip)
-      .limit(page_size)
-      .sort(order_by);
-    const total_page = Math.ceil(total / page_size);
-    return {
-      data: products,
-      meta: {
-        pagination: {
-          page: page,
-          pageSize: page_size,
-          total: total,
-          totalPage: total_page,
+    const total = await Product.countDocuments();
+    if (!page) {
+      const products = await Product.find();
+      return products;
+    } else {
+      const skip = (page - 1) * page_size;
+      const products = await Product.find().skip(skip).limit(page_size);
+      const total_page = Math.ceil(total / page_size);
+      return {
+        data: products,
+        meta: {
+          pagination: {
+            page: page,
+            pageSize: page_size,
+            total: total,
+            totalPage: total_page,
+          },
         },
-      },
-    };
+      };
+    }
   } catch (error) {
     throw error;
   }

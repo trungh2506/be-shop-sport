@@ -40,6 +40,9 @@ const product_schema = new mongoose.Schema({
   size_list: {
     type: [size_list],
   },
+  sale_price: {
+    type: Number,
+  },
   is_hot: { type: Boolean, default: false, required: true },
   is_sale: { type: Boolean, default: false, required: true },
   is_deleted: {

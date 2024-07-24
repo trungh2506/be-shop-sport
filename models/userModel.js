@@ -1,7 +1,7 @@
 import mongoose, { SchemaType } from "mongoose";
-import Cart from "../models/cart.model";
-import Order from "../models/order.model";
-import OrderAddress from "../models/order_address.model";
+import Cart from "./cart.model";
+import Order from "./order.model";
+import OrderAddress from "./order_address.model";
 
 const user_schema = mongoose.Schema({
   username: {
