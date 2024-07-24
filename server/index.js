@@ -2,7 +2,9 @@ import express from "express";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import dbconnect from "../config/db.config.js";
+import productRoutes from "../routes/productRoutes.js";
 dotenv.config();
+
 const app = express();
 
 app.use(morgan("combined"));
@@ -13,6 +15,8 @@ app.use(
   })
 );
 app.use(express.json());
+
+app.use("/api", productRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");

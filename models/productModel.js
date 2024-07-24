@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const size_list = new Schema({
+const size_list = new mongoose.Schema({
   size_name: {
     type: String,
     required: true,
@@ -11,7 +11,7 @@ const size_list = new Schema({
   },
 });
 
-const product_schema = new Schema({
+const product_schema = new mongoose.Schema({
   state: {
     type: Boolean,
     required: true,
@@ -40,11 +40,18 @@ const product_schema = new Schema({
   size_list: {
     type: [size_list],
   },
+  is_hot: { type: Boolean, default: false, required: true },
+  is_sale: { type: Boolean, default: false, required: true },
   is_deleted: {
     type: Boolean,
     default: false,
     required: true,
   },
+  updated_at: {
+    type: Date,
+    default: Date.now,
+    required: true,
+  },
 });
 
-export default Product = mongoose.model("Product", product_schema);
+export default mongoose.model("Product", product_schema);

@@ -33,11 +33,6 @@ const cart_schema = Schema({
     default: [],
     required: true,
   },
-  created_at: {
-    type: Date,
-    default: Date.now,
-    required: true,
-  },
 });
 
 export default Cart = mongoose.model("Cart", cart_schema);
